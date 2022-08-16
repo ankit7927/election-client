@@ -1,19 +1,17 @@
 import { React, useEffect, useState } from "react"
 import { Link } from "react-router-dom";
-
+import axios from 'axios'
 
 const ElectionPage = () => {
     const [data, setdata] = useState([])
     const [allEle, setAllEle] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:4000/public/current-ele")
-            .then(res => res.json())
-            .then((res) => { setdata(res); console.log(res) })
+        axios.get("http://localhost:4000/public/current-ele")
+            .then((res) => { setdata(res.data); console.log(res.data) })
             .catch(err => console.log(err))
-        fetch("http://localhost:4000/public/all-election")
-            .then(res => res.json())
-            .then((res) => { setAllEle(res); console.log(res) })
+        axios.get("http://localhost:4000/public/all-election")
+            .then((res) => { setAllEle(res.data); console.log(res.data) })
             .catch(err => console.log(err))
     }, [])
 
