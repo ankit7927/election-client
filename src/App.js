@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
+import ElectionPage from "./pages/ElectionPage";
 
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
         <Route path='/about' element={<AboutPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/election' element={<ElectionPage />} />
+
       </Routes>
     </Router>
   );
