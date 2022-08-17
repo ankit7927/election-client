@@ -17,8 +17,14 @@ const LoginPage = () => {
                 "username": uname,
                 "password": pass
             }
-        ).then((res) => { console.log(res.status); navigate("/") })
-            .catch(err => console.log(err))
+        ).then((res) => {
+            if (res.status == 200) {
+                localStorage.setItem("voterID", res.data.voterid)
+                navigate("/profile")
+            } else {
+                console.log("failed")
+            }
+        }).catch(err => console.log(err))
     }
     return (
         <section class="text-gray-600 body-font">
@@ -38,7 +44,7 @@ const LoginPage = () => {
                             <label for="password" class="leading-7 text-sm text-gray-600">Password</label>
                             <input required type="password" onChange={setPword} id="password" name="password" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                         </div>
-                        <button type='submit' class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                        <button type='submit' class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Login</button>
                         <p class="text-xs text-gray-500 mt-3">Literally you probably haven't heard of them jean shorts.</p>
                     </div>
                 </div>
