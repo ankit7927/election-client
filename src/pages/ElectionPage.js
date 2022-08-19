@@ -25,7 +25,7 @@ const ElectionPage = () => {
                         data.map((ele) => {
                             return (
                                 <div>
-                                    name:<b>{ele.electionName}</b><button><Link to="#">vote</Link></button><br />
+                                    name:<b>{ele.electionName}</b><button><Link to={ele._id}>vote</Link></button><br />
                                     from : {new Date(ele.nominationStart).toLocaleDateString()}<br />
                                     to : {new Date(ele.votingEnd).toLocaleDateString()}<br />
                                     voting start : {new Date(ele.votingStart).toLocaleDateString()}<br />
