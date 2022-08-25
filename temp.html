@@ -1,0 +1,350 @@
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+{data.map((ele) => {
+return (
+<div>
+    name:<b>{ele.electionName}</b>
+    <button>
+        <Link to={ele._id}>vote</Link>
+    </button>
+    <br />
+    from : {new Date(ele.nominationStart).toLocaleDateString()}
+    <br />
+    to : {new Date(ele.votingEnd).toLocaleDateString()}
+    <br />
+    voting start : {new Date(ele.votingStart).toLocaleDateString()}
+    <br />
+    voting end : {new Date(ele.votingEnd).toLocaleDateString()}
+    <br />
+    <br />
+    <b>candidates</b>
+    {ele.nominatedCandidates.map((can) => {
+    return <div></div>;
+    })}
+    <br />
+    <br />
+</div>
+);
+})}
+</div>
+<hr />
+<div>
+    <h1>Past Elections</h1>
+    {allEle.map((ele) => {
+    return (
+    <div>
+        name:<b>{ele.electionName}</b>
+        <br />
+        from : {new Date(ele.nominationStart).toLocaleDateString()}
+        <br />
+        to : {new Date(ele.votingEnd).toLocaleDateString()}
+        <br />
+        voting start : {new Date(ele.votingStart).toLocaleDateString()}
+        <br />
+        voting end : {new Date(ele.votingEnd).toLocaleDateString()}
+        <br />
+        <br />
+        <br />
+        <br />
+    </div>
+    );
+    })}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="row">
+    <dt class="col-sm-3">Description lists</dt>
+    <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+
+    <dt class="col-sm-3">Term</dt>
+    <dd class="col-sm-9">
+        <p>Definition for the term.</p>
+        <p>And some more placeholder definition text.</p>
+    </dd>
+
+    <dt class="col-sm-3">Another term</dt>
+    <dd class="col-sm-9">This definition is short, so no extra paragraphs or anything.</dd>
+
+    <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+    <dd class="col-sm-9">This can be useful when space is tight. Adds an ellipsis at the end.</dd>
+
+    <dt class="col-sm-3">Nesting</dt>
+    <dd class="col-sm-9">
+        <dl class="row">
+            <dt class="col-sm-4">Nested definition list</dt>
+            <dd class="col-sm-8">I heard you like definition lists. Let me put a definition list inside your definition
+                list.</dd>
+        </dl>
+    </dd>
+</dl>
+
+
+
+
+
+<h1>
+    {data.name} - {data.email} - {data.contact}
+</h1>
+<br />
+<p>other user data</p>
+<div>
+    <button onClick={logout} class="btn btn-primary">Logout</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+
+    <div class="col-lg-8 mx-auto p-3 py-md-5">
+        <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94"
+                    role="img">
+                    <title>Bootstrap</title>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"
+                        fill="currentColor"></path>
+                </svg>
+                <span class="fs-4">Starter template</span>
+            </a>
+        </header>
+
+        <main>
+            <h1>Get started with Bootstrap</h1>
+            <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files
+                with this barebones example featuring some basic HTML and helpful links. Download all our examples to
+                get started.</p>
+
+            <div class="mb-5">
+                <a href="/docs/5.0/examples/" class="btn btn-primary btn-lg px-4">Download examples</a>
+            </div>
+
+            <hr class="col-3 col-md-2 mb-5">
+
+            <div class="row g-5">
+                <div class="col-md-6">
+                    <h2>Starter projects</h2>
+                    <p>Ready to beyond the starter template? Check out these open source projects that you can quickly
+                        duplicate to a new GitHub repository.</p>
+                    <ul class="icon-list">
+                        <li><a href="https://github.com/twbs/bootstrap-npm-starter" rel="noopener"
+                                target="_blank">Bootstrap npm starter</a></li>
+                        <li class="text-muted">Bootstrap Parcel starter (coming soon!)</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <h2>Guides</h2>
+                    <p>Read more detailed instructions and documentation on using or contributing to Bootstrap.</p>
+                    <ul class="icon-list">
+                        <li><a href="/docs/5.0/getting-started/introduction/">Bootstrap quick start guide</a></li>
+                        <li><a href="/docs/5.0/getting-started/webpack/">Bootstrap Webpack guide</a></li>
+                        <li><a href="/docs/5.0/getting-started/parcel/">Bootstrap Parcel guide</a></li>
+                        <li><a href="/docs/5.0/getting-started/build-tools/">Contributing to Bootstrap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        <footer class="pt-5 my-5 text-muted border-top">
+            Created by the Bootstrap team · © 2021
+        </footer>
+    </div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form>
+            <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+              <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+  
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-twitter"></i>
+              </button>
+  
+              <button type="button" class="btn btn-primary btn-floating mx-1">
+                <i class="fab fa-linkedin-in"></i>
+              </button>
+            </div>
+  
+            <div class="divider d-flex align-items-center my-4">
+              <p class="text-center fw-bold mx-3 mb-0">Or</p>
+            </div>
+  
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <input type="email" id="form3Example3" class="form-control form-control-lg"
+                placeholder="Enter a valid email address" />
+              <label class="form-label" for="form3Example3">Email address</label>
+            </div>
+  
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+              <input type="password" id="form3Example4" class="form-control form-control-lg"
+                placeholder="Enter password" />
+              <label class="form-label" for="form3Example4">Password</label>
+            </div>
+  
+            <div class="d-flex justify-content-between align-items-center">
+              <!-- Checkbox -->
+              <div class="form-check mb-0">
+                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+                <label class="form-check-label" for="form2Example3">
+                  Remember me
+                </label>
+              </div>
+              <a href="#!" class="text-body">Forgot password?</a>
+            </div>
+  
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="button" class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+              <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
+                  class="link-danger">Register</a></p>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+  <section class="text-gray-600 body-font">
+    <form onSubmit={submit}>
+      <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+        <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
+          <h1 class="title-font font-medium text-3xl text-gray-900">
+            Next level Voting System
+          </h1>
+          <p class="leading-relaxed mt-4">
+            Poke slow-carb mixtape knausgaard, typewriter street art gentrify
+            hammock starladder roathse. Craies vegan tousled etsy austin.
+          </p>
+        </div>
+        <div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+          <h1 class="text-gray-900 h1 font-medium title-font mb-5">
+            Log in
+          </h1>
+          <div class="relative mb-4">
+            <label for="username" class="leading-7 text-sm text-gray-600">
+              Username
+            </label>
+            <input
+              required
+              onChange={(e) => setuname(e.target.value)}
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+            />
+          </div>
+          <div class="relative mb-4">
+            <label for="password" class="leading-7 text-sm text-gray-600">
+              Password
+            </label>
+            <input
+              required
+              type="password"
+              onChange={(e) => setpass(e.target.value)}
+              id="password"
+              name="password"
+              class="form-control"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-success"
+          >
+            Login
+          </button>
+          <p class="text-xs text-gray-500 mt-3">
+            Literally you probably haven't heard of them jean shorts.
+          </p>
+        </div>
+      </div>
+    </form>
+  </section>
+
+
+
+
+
+
+
+
+
+
+

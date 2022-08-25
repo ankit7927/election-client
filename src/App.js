@@ -1,11 +1,15 @@
 import { Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import ElectionPage from "./pages/ElectionPage";
-import VotePage from "./pages/VotePage";
+import ElectionPageV2 from "./pages/ElectionPageV2";
 import Layout from "./components/Layout";
+import ElectionPageV3 from "./pages/ElectionPageV3";
+
+
 
 function App() {
   return (
@@ -15,17 +19,18 @@ function App() {
 
         <Route path="election">
           <Route index element={<ElectionPage />} />
-          <Route path=":id" element={<VotePage />} />
+          <Route path="more" element={<ElectionPageV2 />} />
+          <Route path="vote" element={<ElectionPageV3 />} />
           {/** this path should be authenticated */}
         </Route>
-
-        <Route path="aboutUs" element={<AboutPage />} />
-        <Route path="login" element={<LoginPage />} />
 
         <Route path="profile">
           {/** this path should be authenticated */}
           <Route index element={<ProfilePage />} />
         </Route>
+
+        <Route path="aboutUs" element={<AboutPage />} />
+        <Route path="login" element={<LoginPage />} />
       </Route>
     </Routes>
   );
