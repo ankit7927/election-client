@@ -32,60 +32,43 @@ const LoginPage = () => {
   };
   return (
     <section class="text-gray-600 body-font">
-    <form onSubmit={submit}>
-      <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
-        <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
-          <h1 class="title-font font-medium text-3xl text-gray-900">
-            Next level Voting System
-          </h1>
-          <p class="leading-relaxed mt-4">
-            Poke slow-carb mixtape knausgaard, typewriter street art gentrify
-            hammock starladder roathse. Craies vegan tousled etsy austin.
-          </p>
+      <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+          <h1 class="display-4 fw-bold lh-1 mb-3">Next level Voting System</h1>
+          <p class="col-lg-10 fs-4">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
         </div>
-        <div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
-          <h1 class="text-gray-900 h1 font-medium title-font mb-5">
-            Log in  
-          </h1>
-          <div class="relative mb-4">
-            <label for="username" class="leading-7 text-sm text-gray-600">
-              Username
-            </label>
-            <input
-              required
-              onChange={(e) => setuname(e.target.value)}
-              type="text"
-              id="username"
-              name="username"
-              class="form-control"
-            />
-          </div>
-          <div class="relative mb-4">
-            <label for="password" class="leading-7 text-sm text-gray-600">
-              Password
-            </label>
-            <input
-              required
-              type="password"
-              onChange={(e) => setpass(e.target.value)}
-              id="password"
-              name="password"
-              class="form-control"
-            />
-          </div>
-          <button
-            type="submit"
-            class="btn btn-success"
-          >
-            Login
-          </button>
-          <p class="text-xs text-gray-500 mt-3">
-            Literally you probably haven't heard of them jean shorts.
-          </p>
+        <div class="col-md-10 mx-auto col-lg-5">
+          <form class="p-4 p-md-5 border rounded-3 bg-light" onSubmit={submit}>
+            <h1 class="text-gray-900 h1 font-medium title-font mb-5">
+              Log in
+            </h1>
+            <div class="form-floating mb-3">
+              <input type="text" onChange={(e) => setuname(e.target.value)} class="form-control" id="floatingInput" placeholder="Username" required />
+              <label for="floatingInput">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" onChange={(e) => setpass(e.target.value)} class="form-control" id="floatingPassword" placeholder="Password" required />
+              <label for="floatingPassword">Password</label>
+            </div>
+            <div class="checkbox mb-3">
+              <label>
+                <input type="checkbox" value="remember-me" /> Remember me
+              </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+            <hr class="my-4" />
+            <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+          </form>
         </div>
       </div>
-    </form>
-  </section>
+
+
+
+
+
+
+
+    </section>
   );
 };
 

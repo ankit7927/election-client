@@ -2,14 +2,19 @@ import { React } from "react";
 import { Link } from "react-router-dom";
 
 const ElectionCard = (props) => {
+    console.log(props.data)
     return (
-        <div class="col">
-            <div class="card h-100 bg-light">
-                <div class="card-body">
-                    <h5 class="card-title">{props.electionName}</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <Link to={props._id} class="btn btn-primary">Check</Link>
+        <div class="col-md-6">
+            <div class="card row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">{props.data.state}</strong>
+                    <h3 class="mb-0">{props.data.electionName}</h3>
+                    <div class="mb-1 text-muted">{new Date(props.data.votingStart).toLocaleDateString()}</div>
+                    <p class="card-text mb-auto text-truncate mt-1">{props.data.electionDec}</p>
+                    <Link to={`/election/info/${props.data._id}`} class="stretched-link mt-2">View Status</Link>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <image class="card-image-top" width="200" height="250" src={`http://localhost:4000/${props.data.image}`} />
                 </div>
             </div>
         </div>

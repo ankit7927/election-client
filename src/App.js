@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import LoginPage from "./pages/LoginPage";
@@ -19,9 +20,9 @@ function App() {
 
         <Route path="election">
           <Route index element={<ElectionPage />} />
-          <Route path="more" element={<ElectionPageV2 />} />
-          <Route path="vote" element={<ElectionPageV3 />} />
+          <Route path="info/:eleID" element={<ElectionPageV2 />} />
           {/** this path should be authenticated */}
+          <Route path="vote/:eleID" element={<ElectionPageV3 />} />
         </Route>
 
         <Route path="profile">

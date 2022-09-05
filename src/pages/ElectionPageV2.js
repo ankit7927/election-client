@@ -1,50 +1,28 @@
-import { React } from "react";
-
-const voterPage = {
-  electionName: "Prime minister",
-  criteria: [
-    {
-      name: "criteria one"
-    },
-    {
-      name: "criteria two"
-    },
-    {
-      name: "criteria three"
-    },
-  ],
-  party: [
-    {
-      name: "party one"
-    },
-    {
-      name: "party two"
-    },
-    {
-      name: "party three"
-    },
-    {
-      name: "party one"
-    },
-    {
-      name: "party two"
-    },
-    {
-      name: "party three"
-    },
-  ]
-}
+import { React, useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import axios from "../extras/reqHelper";
 
 const ElectionPageV2 = () => {
+  const { eleID } = useParams()
+  const [election, setElection] = useState({});
+  const [candidates, setCandidates] = useState([]);
+
+  useEffect(() => {
+    axios.get(`/public/get-election/${eleID}`)
+      .then((res) => { setElection(res.data); console.log(res.data) })
+      .catch(err => console.log(err))
+    axios.get(`/public/all-cand/${eleID}`)
+      .then((res) => { setCandidates(res.data.nominatedCandidates); console.log(res.data.nominatedCandidates) })
+      .catch(err => console.log(err))
+  }, []);
+
   return (
     <div>
-      <h1 class="mb-3">{voterPage.electionName}</h1>
-      <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files
-        with this barebones example featuring some basic HTML and helpful links. Download all our examples to
-        get started.</p>
+      <h1 class="mb-3">{election.electionName}</h1>
+      <p class="fs-5 col-md-8">{election.electionDec}</p>
 
       <div class="mb-5">
-        <a href="vote" class="btn btn-primary btn-lg px-4">Give Your Vote</a>
+        <Link to={`/vote/${eleID}`} class="btn btn-primary btn-lg px-4">Give Your Vote</Link>
       </div>
 
       <hr class="col-3 col-md-2 mb-5" />
@@ -55,13 +33,7 @@ const ElectionPageV2 = () => {
           <p>Ready to beyond the starter template? Check out these open source projects that you can quickly
             duplicate to a new GitHub repository.</p>
           <ul class="icon-list">
-            {
-              voterPage.criteria.map((cr) => {
-                return (
-                  <li><a href="#">{cr.name} </a></li>
-                )
-              })
-            }
+            <li><a href="#"></a></li>
           </ul>
         </div>
 
@@ -70,9 +42,12 @@ const ElectionPageV2 = () => {
           <p>Read more detailed instructions and documentation on using or contributing to Bootstrap.</p>
           <ol>
             {
-              voterPage.party.map((part) => {
+              candidates.map((cand) => {
                 return (
-                  <li><a href="#">{part.name} </a></li>
+
+                  <li>
+                    <a href="#">{cand.candidateID}</a>
+                  </li>
                 )
               })
             }
