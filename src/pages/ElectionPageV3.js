@@ -1,23 +1,39 @@
-import { React, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-const Candidate = [
-  {
-    name: "modi",
-    party: "bjp",
-  },
-  {
-    name: "rahul",
-    party: "congress",
-  },
-  {
-    name: "lalu",
-    party: "bsp",
-  },
-];
+import { React, useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import axios from "../extras/reqHelper";
 
 const ElectionPageV3 = () => {
-  const { eleID } = useParams()
-  const [varifed, setVarifed] = useState(false);
+  const navigate = useNavigate();
+  const [candidates, setCandidates] = useState([]);
+  const [selectedCand, SelectCand] = useState("")
+  const [password, setPassword] = useState("")
+  const { eleID } = useParams()  // eleid
+  const { auth } = useAuth();    // voterid
+
+  useEffect(() => {
+    axios.get(`/public/all-cand/${eleID}`)
+      .then((res) => { setCandidates(res.data.nominatedCandidates) })
+      .catch(err => console.log(err))
+  }, [])
+
+
+  const giveVote = (e) => {
+    e.preventDefault()
+    const postData = {
+      "selectedCand": selectedCand,
+      "eleID": eleID,
+      "voterID": auth.voterID
+    }
+
+    axios.post("voter/vote", postData)
+      .then((res) => {
+        console.log(res.data)
+        navigate("/")
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
     <div class="row g-5">
 
@@ -28,31 +44,31 @@ const ElectionPageV3 = () => {
           contributing to Bootstrap.
         </p>
 
-        <ul class="list-group mb-3">
-          {Candidate.map((cand) => {
-            return (
-              <li class="list-group-item">
-                <input type="radio" class="form-check-input me-1" name="name" />
-                <div class="d-flex w-100 justify-content-between mt-2">
-                  <h6 class="my-0">{cand.name}</h6>
-                  <small class="text-muted">small description</small>
-                </div>
-                <p>{cand.party}</p>
-              </li>
-            );
-          })}
+        <ul class="list-group mb-3" >
+          {
+            candidates.map((cand) => {
+              return (
+                <li class="list-group-item">
+                  <input type="radio" required onChange={(e) => { SelectCand(e.target.value) }} class="form-check-input me-1" value={cand.candidateID} name="name" />
+                  <div class="d-flex w-100 justify-content-between mt-2">
+                    <h6 class="my-0">{cand.candidateID}  cand name</h6>
+                    <small class="text-muted">{cand.voteCount}</small>
+                  </div>
+                  <p>cand.party</p>
+                </li>
+              )
+            })
+          }
+
         </ul>
 
-        <button type="submit" class="btn btn-success mt-2">
-          Lock Your Selection
-        </button>
       </div>
 
 
       <div class="col-md-6">
         <h2>Confirm Identity</h2>
 
-        <form>
+        <form onSubmit={giveVote}>
           <div class="mb-3">
             <label for="otp" class="form-label">
               OTP
@@ -86,6 +102,7 @@ const ElectionPageV3 = () => {
               class="form-control"
               id="Password"
               aria-describedby="passhelp"
+              required
             />
             <div id="passhelp" class="form-text">
               We'll never share your password with anyone else.

@@ -23,7 +23,7 @@ const LoginPage = () => {
           const voterID = res.data.voterID;
           setAuth({ uname, voterID });
           localStorage.setItem("voterToken", res.data.token);
-          navigate("/profile");
+          navigate("/");
         } else {
           console.log("failed");
         }

@@ -22,7 +22,7 @@ const ElectionPageV2 = () => {
       <p class="fs-5 col-md-8">{election.electionDec}</p>
 
       <div class="mb-5">
-        <Link to={`/vote/${eleID}`} class="btn btn-primary btn-lg px-4">Give Your Vote</Link>
+        <Link to={`/election/vote/${eleID}`} class="btn btn-primary btn-lg px-4">Give Your Vote</Link>
       </div>
 
       <hr class="col-3 col-md-2 mb-5" />
