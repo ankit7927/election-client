@@ -7,7 +7,6 @@ const LoginPage = () => {
   const [uname, setuname] = useState();
   const [pass, setpass] = useState();
   const navigate = useNavigate();
-  const location = useLocation();
   const { setAuth } = useAuth();
 
   const submit = (e) => {

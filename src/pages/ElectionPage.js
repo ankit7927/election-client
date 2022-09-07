@@ -8,7 +8,7 @@ const ElectionPage = () => {
 
   useEffect(() => {
     axios.get("/public/all-election")
-      .then((res) => { setAllEle(res.data); console.log(res.data) })
+      .then((res) => { setAllEle(res.data) })
       .catch(err => console.log(err))
   }, []);
 

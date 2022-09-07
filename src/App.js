@@ -20,10 +20,11 @@ function App() {
 
         <Route path="election">
           <Route index element={<ElectionPage />} />
-          <Route path="info/:eleID" element={<ElectionPageV2 />} />
+          <Route path="info" element={<ElectionPageV2 />} />
           {/** this path should be authenticated */}
-          <Route path="vote/:eleID" element={<ElectionPageV3 />} />
+          <Route path="vote" element={<ElectionPageV3 />} />
         </Route>
+
 
         <Route path="profile">
           {/** this path should be authenticated */}

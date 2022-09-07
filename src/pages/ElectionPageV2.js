@@ -1,18 +1,16 @@
 import { React, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import Idconformation from "../components/Idconformation";
 import axios from "../extras/reqHelper";
+import useElection from "../hooks/useElection";
+
 
 const ElectionPageV2 = () => {
-  const { eleID } = useParams()
-  const [election, setElection] = useState({});
+  const { election } = useElection()
   const [candidates, setCandidates] = useState([]);
 
   useEffect(() => {
-    axios.get(`/public/get-election/${eleID}`)
-      .then((res) => { setElection(res.data); console.log(res.data) })
-      .catch(err => console.log(err))
-    axios.get(`/public/all-cand/${eleID}`)
-      .then((res) => { setCandidates(res.data.nominatedCandidates); console.log(res.data.nominatedCandidates) })
+    axios.get(`/public/all-cand/${election._id}`)
+      .then((res) => { setCandidates(res.data.nominatedCandidates); })
       .catch(err => console.log(err))
   }, []);
 
@@ -22,7 +20,7 @@ const ElectionPageV2 = () => {
       <p class="fs-5 col-md-8">{election.electionDec}</p>
 
       <div class="mb-5">
-        <Link to={`/election/vote/${eleID}`} class="btn btn-primary btn-lg px-4">Give Your Vote</Link>
+        <Idconformation />
       </div>
 
       <hr class="col-3 col-md-2 mb-5" />
@@ -40,13 +38,16 @@ const ElectionPageV2 = () => {
         <div class="col-md-6">
           <h2>Electing Parties / Candidates</h2>
           <p>Read more detailed instructions and documentation on using or contributing to Bootstrap.</p>
-          <ol>
+          <ol class="list-group list-group-numbered">
             {
               candidates.map((cand) => {
                 return (
-
-                  <li>
-                    <a href="#">{cand.candidateID}</a>
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="fw-bold">Party Name</div>
+                      {cand.candidateID}
+                    </div>
+                    <span class="badge bg-primary rounded-pill">{cand.voteCount}</span>
                   </li>
                 )
               })

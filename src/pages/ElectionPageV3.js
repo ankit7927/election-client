@@ -2,17 +2,18 @@ import { React, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import axios from "../extras/reqHelper";
+import useElection from "../hooks/useElection";
+
 
 const ElectionPageV3 = () => {
   const navigate = useNavigate();
+  const { election } = useElection()
   const [candidates, setCandidates] = useState([]);
   const [selectedCand, SelectCand] = useState("")
-  const [password, setPassword] = useState("")
-  const { eleID } = useParams()  // eleid
-  const { auth } = useAuth();    // voterid
+  const { auth } = useAuth();
 
   useEffect(() => {
-    axios.get(`/public/all-cand/${eleID}`)
+    axios.get(`/public/all-cand/${election._id}`)
       .then((res) => { setCandidates(res.data.nominatedCandidates) })
       .catch(err => console.log(err))
   }, [])
@@ -22,7 +23,7 @@ const ElectionPageV3 = () => {
     e.preventDefault()
     const postData = {
       "selectedCand": selectedCand,
-      "eleID": eleID,
+      "eleID": election._id,
       "voterID": auth.voterID
     }
 
