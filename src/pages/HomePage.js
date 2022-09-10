@@ -6,7 +6,6 @@ import ElectionCard from "../components/ElectionCard";
 export const HomePage = () => {
   const [eleData, setEleData] = useState([])
   useEffect(() => {
-    console.log("req")
     axios.get("public/current-ele")
       .then((res) => {
         setEleData(res.data)

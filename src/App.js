@@ -9,8 +9,8 @@ import ElectionPage from "./pages/ElectionPage";
 import ElectionPageV2 from "./pages/ElectionPageV2";
 import Layout from "./components/Layout";
 import ElectionPageV3 from "./pages/ElectionPageV3";
-
-
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 function App() {
   return (
@@ -21,18 +21,19 @@ function App() {
         <Route path="election">
           <Route index element={<ElectionPage />} />
           <Route path="info" element={<ElectionPageV2 />} />
-          {/** this path should be authenticated */}
           <Route path="vote" element={<ElectionPageV3 />} />
         </Route>
 
 
         <Route path="profile">
-          {/** this path should be authenticated */}
           <Route index element={<ProfilePage />} />
         </Route>
 
         <Route path="aboutUs" element={<AboutPage />} />
-        <Route path="login" element={<LoginPage />} />
+        <Route path="auth" element={<LoginPage />} >
+          <Route path="" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+        </Route>
       </Route>
     </Routes>
   );

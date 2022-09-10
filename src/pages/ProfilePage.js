@@ -2,47 +2,64 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import axios from "../extras/reqHelper";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const ProfilePage = () => {
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
   var navgate = useNavigate();
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const [voterID, setVoterID] = useState()
-  const [username, setUsername] = useState()
-  const [name, setName] = useState()
-  const [contact, setContact] = useState()
-  const [email, setemail] = useState()
-  const [address, setAddress] = useState()
-  const [state, setState] = useState()
-  const [birthDate, setBirthDate] = useState()
-  const [panNo, setPanNo] = useState()
-  const [adharNo, setAdhar] = useState()
+  const [voterID, setVoterID] = useState("")
+  const [username, setUsername] = useState("")
+  const [name, setName] = useState("")
+  const [contact, setContact] = useState("")
+  const [email, setemail] = useState("")
+  const [address, setAddress] = useState("")
+  const [state, setState] = useState("")
+  const [birthDate, setBirthDate] = useState("")
+  const [panNo, setPanNo] = useState("")
+  const [adharNo, setAdhar] = useState("")
+
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
-    if (auth.voterID) {
-      axios
-        .get(`/voter/voter-profile/${auth.voterID}`)
-        .then((res) => {
-          setName(res.data.name)
-          setemail(res.data.email)
-          setContact(res.data.contact)
-          setAddress(res.data.address)
-          setState(res.data.state)
-          setBirthDate(res.data.birthDate)
-          setPanNo(res.data.panNo)
-          setAdhar(res.data.adharNo)
-          setUsername(res.data.username)
-          setVoterID(res.data._id)
-        })
-        .catch((err) => console.log(err));
-    } else {
-      setAuth({})
-      localStorage.removeItem("voterToken");
-      navgate("/login");
-    }
+
+    axios
+      .get("/voter/voter-profile", {
+        headers: {
+          "Authorization": localStorage.getItem("voterToken")
+        }
+      })
+      .then((res) => {
+        console.log(res.data)
+        setName(res.data.name)
+        setemail(res.data.email)
+        setContact(res.data.contact)
+        setAddress(res.data.address)
+        setState(res.data.state)
+        setBirthDate(res.data.birthDate)
+        setPanNo(res.data.panNo)
+        setAdhar(res.data.adharNo)
+        setUsername(res.data.username)
+        setVoterID(res.data._id)
+      })
+      .catch((err) => console.log(err));
+
   }, []);
 
   const logout = () => {
+    setName("")
+    setemail("")
+    setContact("")
+    setAddress("")
+    setState("")
+    setBirthDate("")
+    setPanNo("")
+    setAdhar("")
+    setUsername("")
+    setVoterID("")
     setAuth({})
     localStorage.removeItem("voterToken");
     navgate("/");
@@ -60,13 +77,21 @@ const ProfilePage = () => {
       "birthDate": birthDate
     }
 
-    axios.put(`voter/voter-update/${voterID}`, postData)
+    axios.put("/voter/voter-update", postData, {
+      headers: {
+        "Authorization": localStorage.getItem("voterToken")
+      }
+    })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data)
-          console.log("pro updated")
+          setMessage("Updated Success")
+          setShow(true)
         }
-      }).catch(err => console.log(err))
+      }).catch((err) => {
+        console.log(err)
+        setMessage("Failed To Updated")
+        setShow(true)
+      })
 
 
   }
@@ -90,7 +115,7 @@ const ProfilePage = () => {
               </div>
               <div class="row mt-2">
                 <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" onChange={(e) => { setName(e.target.value) }} value={name} /></div>
-                <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname" /></div>
+                <div class="col-md-6"><label class="labels">Profile Image</label><input type="file" class="form-control" id="inputGroupFile02" /></div>
               </div>
               <div class="row mt-2">
                 <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" onChange={(e) => { setContact(e.target.value) }} value={contact} /></div>
@@ -119,6 +144,17 @@ const ProfilePage = () => {
           </div>
         </div>
       </form>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Message</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{message}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
 
   );

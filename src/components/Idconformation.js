@@ -5,37 +5,33 @@ import Modal from 'react-bootstrap/Modal'
 import axios from "../extras/reqHelper";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import useElection from '../hooks/useElection';
 
 
 
 
 const Idconformation = () => {
-    const { election, setElection } = useElection()
     const [show, setShow] = useState(false);
     const [pass, setPass] = useState("");
     const navigate = useNavigate();
     const { auth } = useAuth();
 
-
-
-
     const handleSubmit = () => {
-        axios.post("/voter/voter-conf", {
-            voterID: auth.voterID,
-            password: pass
-        }).then(res => {
-            if (res.status === 200) {
-                setShow(false)
-                return navigate("/election/vote")
+        axios.post("/voter/voter-conf", { password: pass }, {
+            headers: {
+                "Authorization": localStorage.getItem("voterToken")
             }
-
-        }).catch(err => console.log(err))
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    setShow(false)
+                    return navigate("/election/vote")
+                }
+            }).catch(err => console.log(err))
     };
 
     const showModel = () => {
-        if (auth.voterID == undefined) {
-            return navigate("/login")
+        if (auth.voterID === undefined) {
+            return navigate("/auth")
         } else {
             setShow(true)
         }
@@ -44,7 +40,7 @@ const Idconformation = () => {
 
     return (
         <div>
-            <Button variant="primary" onClick={showModel}>
+            <Button class="btn btn-primary btn-lg" variant="primary" onClick={showModel}>
                 Give Your Vote
             </Button>
 

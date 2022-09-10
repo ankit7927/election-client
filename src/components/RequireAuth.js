@@ -6,7 +6,11 @@ const RequireAuth = ({ allowedROles }) => {
   const { auth } = useAuth();
   const locaion = useLocation();
 
-  return <div>RequireAuth</div>;
+  return (
+    auth?.voterID
+      ? <Outlet />
+      : <Navigate to="/auth" state={{ from: locaion }} replace />
+  )
 };
 
 export default RequireAuth;

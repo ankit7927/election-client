@@ -1,38 +1,48 @@
-import { React, useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import axios from "../extras/reqHelper";
 import useElection from "../hooks/useElection";
-
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const ElectionPageV3 = () => {
   const navigate = useNavigate();
   const { election } = useElection()
-  const [candidates, setCandidates] = useState([]);
   const [selectedCand, SelectCand] = useState("")
+  const [message, setMessage] = useState("")
+  const [title, setTitle] = useState("")
+  const [show, setShow] = useState(false);
   const { auth } = useAuth();
 
-  useEffect(() => {
-    axios.get(`/public/all-cand/${election._id}`)
-      .then((res) => { setCandidates(res.data.nominatedCandidates) })
-      .catch(err => console.log(err))
-  }, [])
+  const handleClose = () => { setShow(false); navigate("/election") };
+  const handleShow = () => setShow(true);
 
 
   const giveVote = (e) => {
     e.preventDefault()
     const postData = {
       "selectedCand": selectedCand,
-      "eleID": election._id,
-      "voterID": auth.voterID
+      "eleID": election._id
     }
 
-    axios.post("voter/vote", postData)
+    axios.post("/voter/vote", postData, {
+      headers: {
+        "Authorization": localStorage.getItem("voterToken")
+      }
+    })
       .then((res) => {
-        console.log(res.data)
-        navigate("/")
+        if (res.status === 200) {
+          setTitle("Success")
+          setMessage(res.data)
+          handleShow()
+        }
       })
-      .catch(err => console.log(err))
+      .catch((err) => {
+        setTitle(err.response.status)
+        setMessage(err.response.data.error)
+        handleShow()
+      })
   }
 
   return (
@@ -47,15 +57,15 @@ const ElectionPageV3 = () => {
 
         <ul class="list-group mb-3" >
           {
-            candidates.map((cand) => {
+            election.nominatedCandidates.map((cand) => {
               return (
                 <li class="list-group-item">
                   <input type="radio" required onChange={(e) => { SelectCand(e.target.value) }} class="form-check-input me-1" value={cand.candidateID} name="name" />
                   <div class="d-flex w-100 justify-content-between mt-2">
-                    <h6 class="my-0">{cand.candidateID}  cand name</h6>
+                    <h4 class="my-0">{cand.candName}</h4>
                     <small class="text-muted">{cand.voteCount}</small>
                   </div>
-                  <p>cand.party</p>
+                  <p>{cand.candEmail}</p>
                 </li>
               )
             })
@@ -86,6 +96,7 @@ const ElectionPageV3 = () => {
                 type="text"
                 class="form-control"
                 placeholder=""
+                value="123456"
                 aria-label="Example text with button addon"
                 aria-describedby="button-addon1"
               />
@@ -115,6 +126,18 @@ const ElectionPageV3 = () => {
           </button>
         </form>
       </div>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{message}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Back To Home
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
 
     </div>
