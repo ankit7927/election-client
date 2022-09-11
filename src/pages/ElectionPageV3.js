@@ -25,7 +25,7 @@ const ElectionPageV3 = () => {
       "selectedCand": selectedCand,
       "eleID": election._id
     }
-
+    console.log(postData)
     axios.post("/voter/vote", postData, {
       headers: {
         "Authorization": localStorage.getItem("voterToken")
@@ -39,6 +39,7 @@ const ElectionPageV3 = () => {
         }
       })
       .catch((err) => {
+        console.log(err)
         setTitle(err.response.status)
         setMessage(err.response.data.error)
         handleShow()
@@ -60,12 +61,12 @@ const ElectionPageV3 = () => {
             election.nominatedCandidates.map((cand) => {
               return (
                 <li class="list-group-item">
-                  <input type="radio" required onChange={(e) => { SelectCand(e.target.value) }} class="form-check-input me-1" value={cand.candidateID} name="name" />
+                  <input type="radio" required onChange={(e) => { SelectCand(e.target.value) }} class="form-check-input me-1" value={cand.candidate._id} name="name" />
                   <div class="d-flex w-100 justify-content-between mt-2">
-                    <h4 class="my-0">{cand.candName}</h4>
+                    <h4 class="my-0">{cand.candidate.candName}</h4>
                     <small class="text-muted">{cand.voteCount}</small>
                   </div>
-                  <p>{cand.candEmail}</p>
+                  <p>{cand.candidate.candEmail}</p>
                 </li>
               )
             })
@@ -134,7 +135,7 @@ const ElectionPageV3 = () => {
         <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Back To Home
+            Back To Election
           </Button>
         </Modal.Footer>
       </Modal>

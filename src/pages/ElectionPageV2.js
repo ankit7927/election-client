@@ -42,8 +42,8 @@ const ElectionPageV2 = () => {
                 return (
                   <li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
-                      <div class="fw-bold">{cand.candName}</div>
-                      {cand.candEmail}
+                      <div class="fw-bold">{cand.candidate.candName}</div>
+                      {cand.candidate.candEmail}
                     </div>
                     <span class="badge bg-primary rounded-pill">{cand.voteCount}</span>
                   </li>
