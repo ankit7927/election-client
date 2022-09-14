@@ -5,12 +5,6 @@ import useElection from "../hooks/useElection";
 
 const ElectionPageV2 = () => {
   const { election } = useElection()
-
-  const divStyle = {
-    backgroundImage: `url(http://localhost:4000/${election.image})`,
-    height: "400px"
-  };
-
   return (
     <div>
       <div class="p-5 mb-5 bg-light rounded-3">
@@ -29,7 +23,7 @@ const ElectionPageV2 = () => {
           <p>Ready to beyond the starter template? Check out these open source projects that you can quickly
             duplicate to a new GitHub repository.</p>
           <ul class="icon-list">
-            <li><a href="#"></a></li>
+            <li>criateri will display headers</li>
           </ul>
         </div>
 

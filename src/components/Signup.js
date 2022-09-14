@@ -8,6 +8,7 @@ const Signup = () => {
     const [email, setemail] = useState();
     const [uname, setuname] = useState();
     const [pass, setpass] = useState();
+    const [error, setError] = useState("");
     const navigate = useNavigate();
     const { setAuth } = useAuth();
 
@@ -29,10 +30,10 @@ const Signup = () => {
                     localStorage.setItem("voterToken", res.data.token);
                     navigate("/");
                 } else {
-                    console.log("failed");
+                    setError("something went wrong")
                 }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => { console.log(err); setError("failed") });
     };
 
 
@@ -58,6 +59,13 @@ const Signup = () => {
                     <input type="password" onChange={(e) => setpass(e.target.value)} class="form-control" id="floatingPassword" placeholder="Password" required />
                     <label for="floatingPassword">Password</label>
                 </div>
+                {
+                    error ?
+                        <div class="alert alert-danger" role="alert">
+                            {error}
+                        </div>
+                        : <></>
+                }
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Signup</button>
                 <hr class="my-4" />
                 <small class="text-muted"><Link to="/auth">Login</Link> if you alrady have account</small>

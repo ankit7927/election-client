@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import axios from "../extras/reqHelper";
 import useElection from "../hooks/useElection";
 import Button from 'react-bootstrap/Button';
@@ -13,7 +12,6 @@ const ElectionPageV3 = () => {
   const [message, setMessage] = useState("")
   const [title, setTitle] = useState("")
   const [show, setShow] = useState(false);
-  const { auth } = useAuth();
 
   const handleClose = () => { setShow(false); navigate("/election") };
   const handleShow = () => setShow(true);
@@ -25,7 +23,6 @@ const ElectionPageV3 = () => {
       "selectedCand": selectedCand,
       "eleID": election._id
     }
-    console.log(postData)
     axios.post("/voter/vote", postData, {
       headers: {
         "Authorization": localStorage.getItem("voterToken")
