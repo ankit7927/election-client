@@ -1,5 +1,6 @@
 import { React } from "react";
 import Idconformation from "../components/Idconformation";
+import Showbloks from "../components/Showbloks";
 import useElection from "../hooks/useElection";
 
 
@@ -12,7 +13,11 @@ const ElectionPageV2 = () => {
           <h1 class="display-5 fw-bold mb-3">{election.electionName}</h1>
           <p class="col-md-8 fs-4">{election.electionDec}</p>
           <div class="mb-5">
-            <Idconformation />
+            {
+              new Date(election.votingEnd) < new Date()
+                ? <Showbloks />
+                : <Idconformation />
+            }
           </div>
         </div>
       </div >
@@ -23,7 +28,7 @@ const ElectionPageV2 = () => {
           <p>Ready to beyond the starter template? Check out these open source projects that you can quickly
             duplicate to a new GitHub repository.</p>
           <ul class="icon-list">
-            <li>criateri will display headers</li>
+            <li>criateris will display here</li>
           </ul>
         </div>
 
