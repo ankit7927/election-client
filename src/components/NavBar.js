@@ -22,9 +22,6 @@ const NavBar = () => {
             <Link to="/election" class="nav-link">Elections</Link>
           </li>
           <li class="nav-item">
-            <Link to="/aboutUs" class="nav-link">About Us</Link>
-          </li>
-          <li class="nav-item">
             {auth.uname ? (
               <Link to="/profile" class="nav-link">{auth.uname}</Link>
             ) : (

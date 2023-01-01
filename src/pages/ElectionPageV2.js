@@ -1,11 +1,34 @@
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import Idconformation from "../components/Idconformation";
 import Showbloks from "../components/Showbloks";
-import useElection from "../hooks/useElection";
+import axios from "../extras/reqHelper";
 
 
 const ElectionPageV2 = () => {
-  const { election } = useElection()
+  const [ candState, setCandState ] = useState([])
+  const [ election, setElection ] = useState({})
+
+  const id = localStorage.getItem("eleID")
+
+
+  axios.get(`/public/get-election/${id}`)
+            .then((res) => {
+                setElection(res.data);
+            })
+            .catch(err => console.log(err))
+
+  useEffect(()=>{
+    axios.get(`/public/all-cand/${id}`)
+    .then((res) => {
+      setCandState(res.data.nominatedCandidates);
+      console.log(res.data)
+    })
+    .catch(err => console.log(err))
+  }, [])
+ 
+
+          
+
   return (
     <div>
       <div class="p-5 mb-5 bg-light rounded-3">
@@ -36,8 +59,8 @@ const ElectionPageV2 = () => {
           <h2>Electing Parties / Candidates</h2>
           <p>Read more detailed instructions and documentation on using or contributing to Bootstrap.</p>
           <ol class="list-group list-group">
-            {
-              election.nominatedCandidates.map((cand) => {
+          {
+              candState.map((cand) => {
                 return (
                   <li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">

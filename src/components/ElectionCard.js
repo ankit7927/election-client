@@ -6,6 +6,7 @@ import useElection from "../hooks/useElection";
 
 const ElectionCard = (props) => {
     const { setElection } = useElection()
+    localStorage.setItem("eleID", props.data._id)
     const navigate = useNavigate();
     const getElectionData = () => {
         axios.get(`/public/get-election/${props.data._id}`)
